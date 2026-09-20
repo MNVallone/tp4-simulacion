@@ -11,6 +11,7 @@ El [segundo]() surge a partir del primero pero fue transformado previamente para
 Por ahora nuestro modelo funciona de la siguiente manera, es un simil a un sistema de colas como los que vimos en clase.
 
 El intervalo de arribos va a indicar la llegada de nuestro proximo prompt, la cantidad de tokens y el hardness tambien van a ser en base a la FDP que extraigamos del analisis del segundo dataset. Segun el hardness, vamos a determinar a que modelo le vamos a enrutar el prompt que llego (los umbrales $h_1$ y $h_2$ son nuestas variables de control), cuando haya que procesar ese prompt, por medio de otra FDP, vamos a calcular la cantidad de tokens de salida y vamos a calcular el proximo tiempo de salida para la cola de ese modelo.
+Contamos con 3 modelos distintos (uno por cada nivel de dificultad: bajo, medio, alto) según el modelo al que le toque el prompt cambian los parámetros en la subrutina de "tiempo de atención".
 
 ## Scripts
 
