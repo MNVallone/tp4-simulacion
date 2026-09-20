@@ -52,18 +52,40 @@ _Nota: Los últimos 3 pasos se pueden hacer en paralelo_
 
 ## Modelos de IA para la simulación
 
-1. Los modelos de IA que vamos a estar simulando son GPT-5.6 Luna (sería el bajo), GPT-5.6 Terra (medio) y GPT-5.6 Sol (alto). Cada uno cuenta con datos de velocidad y precio que obtuvimos de distintas fuentes:
+Los modelos de IA que vamos a estar simulando son GPT-5.6 Luna (sería el bajo), GPT-5.6 Terra (medio) y GPT-5.6 Sol (alto). Cada uno cuenta con datos de velocidad y precio que obtuvimos de distintas fuentes. Para representar tres niveles de capacidad se utilizan modelos de la familia GPT-5.6 de OpenAI en modo non-reasoning.
 
-Para representar tres niveles de capacidad se utilizan modelos de la familia GPT-5.6 de OpenAI en modo non-reasoning.
-
-Recurso	Modelo	TTFT	Velocidad de salida	Costo input / 1M tokens	Costo output / 1M tokens
-Small	GPT-5.6 Luna	0.93 s	98.1 tokens/s	USD 0.20	USD 1.20
-Medium	GPT-5.6 Terra	1.00 s	73.8 tokens/s	USD 2.00	USD 12.00
-Large	GPT-5.6 Sol	1.17 s	60 tokens/s	USD 4.00	USD 20.00
+<table> <thead> <tr> <th>Recurso</th> <th>Modelo</th> <th>TTFT</th> <th>Velocidad</th> <th>Costo input / 1M tokens</th> <th>Costo output / 1M tokens</th> </tr> </thead> <tbody> <tr> <td>Small</td> <td>GPT-5.6 Luna</td> <td>0.93 s</td> <td>98.1 tokens/s</td> <td>USD 0.20</td> <td>USD 1.20</td> </tr> <tr> <td>Medium</td> <td>GPT-5.6 Terra</td> <td>1.00 s</td> <td>73.8 tokens/s</td> <td>USD 2.00</td> <td>USD 12.00</td> </tr> <tr> <td>Large</td> <td>GPT-5.6 Sol</td> <td>1.17 s</td> <td>60 tokens/s</td> <td>USD 4.00</td> <td>USD 20.00</td> </tr> </tbody> </table>
 
 Los valores de TTFT y velocidad de salida se toman como parametros de referencia obtenidos a partir de benchmarks de la API. Los costos corresponden al precio por tokens de cada modelo.
 
-Tiempo de atencion
+### Precios y especificaciones de los modelos
+
+Los precios por token y las caracteristicas generales de los modelos se obtienen de la documentacion oficial de OpenAI.
+
+OpenAI - API Pricing<br>
+Precios oficiales por 1 millon de tokens de entrada y salida para GPT-5.6 Luna, Terra y Sol.<br>
+https://developers.openai.com/api/docs/pricing<br>
+OpenAI - GPT-5.6 Luna<br>
+https://developers.openai.com/api/docs/models/gpt-5.6-luna<br>
+OpenAI - GPT-5.6 Terra<br>
+https://developers.openai.com/api/docs/models/gpt-5.6-terra<br>
+OpenAI - GPT-5.6 Sol<br>
+https://developers.openai.com/api/docs/models/gpt-5.6-sol<br>
+
+### Velocidad y latencia<br>
+
+Los valores de TTFT (Time To First Token) y velocidad de salida en tokens por segundo se obtienen de Artificial Analysis, que realiza benchmarks independientes sobre las APIs de los proveedores.<br>
+
+Artificial Analysis - GPT-5.6 Luna<br>
+https://artificialanalysis.ai/models/releases/gpt-5-6-luna<br>
+Artificial Analysis - GPT-5.6 Terra<br>
+https://artificialanalysis.ai/models/releases/gpt-5-6-terra<br>
+Artificial Analysis - GPT-5.6 Sol<br>
+https://artificialanalysis.ai/models/releases/gpt-5-6-sol<br>
+Artificial Analysis - Metodologia de benchmarking<br>
+https://artificialanalysis.ai/methodology/performance-benchmarking<br>
+
+### Tiempo de atencion
 
 El tiempo de atencion de una consulta se calcula mediante:
 
