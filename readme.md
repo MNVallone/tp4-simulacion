@@ -8,10 +8,19 @@ El [segundo]() surge a partir del primero pero fue transformado previamente para
 
 ## Modelo
 
-Por ahora nuestro modelo funciona de la siguiente manera, es un simil a un sistema de colas como los que vimos en clase.
+- Generación del arribo: Se determina el momento exacto en el que ingresa un nuevo prompt al sistema calculando el avance del reloj mediante la FDP del intervalo de arribos.
+- Asignación de atributos: Inmediatamente al llegar se usan las FDP para definir las características particulares de ese prompt: su nivel de dificultad (hardness) y sus tokens asociados (cada una con su FDP).
+- Enrutamiento (Routing): Se compara el hardness del prompt contra los umbrales de decisión o variables de control ($h_1$ y $h_2$). Según dónde caiga ese valor, el prompt es derivado a uno de los 3 modelos de IA (servidores de dificultad baja, media o alta).
+- Ingreso a la cola: El prompt se encola en el servidor asignado. Si el modelo de IA está libre, pasa directamente a ser procesado; si está ocupado, espera su turno.
+- Procesamiento (Tiempo de servicio): Al momento de la atención, se calcula cuánto tardará el modelo en responder. Este tiempo de servicio se determina combinando la cantidad de tokens de salida (mediante su respectiva FDP) y los parámetros de rendimiento específicos del modelo asignado.
+- Programación de la salida: Con el tiempo de servicio calculado, se proyecta en el reloj de simulación el tiempo de salida de ese modelo, indicando el momento exacto en el que el prompt termina de ser procesado y abandona el sistema.
 
-El intervalo de arribos va a indicar la llegada de nuestro proximo prompt, la cantidad de tokens y el hardness tambien van a ser en base a la FDP que extraigamos del analisis del segundo dataset. Segun el hardness, vamos a determinar a que modelo le vamos a enrutar el prompt que llego (los umbrales $h_1$ y $h_2$ son nuestas variables de control), cuando haya que procesar ese prompt, por medio de otra FDP, vamos a calcular la cantidad de tokens de salida y vamos a calcular el proximo tiempo de salida para la cola de ese modelo.
-Contamos con 3 modelos distintos (uno por cada nivel de dificultad: bajo, medio, alto) según el modelo al que le toque el prompt cambian los parámetros en la subrutina de "tiempo de atención".
+### TEI
+
+| Evento | EFNC | EFC | Condicion |
+|-----------|-----------|-----------|-----------|
+| $Llegada$    | $Llegada$    | $Salida_i$    | $NP_{global} = 1$|
+| $Salida_i$    | -    | $Salida_i$   |$NP_i > 0$|
 
 ## Scripts
 
@@ -26,11 +35,8 @@ Para ejecutar cualquiera de ellos basta con escribir (dentro de la carpeta sourc
 
 ```python
 py preprocessing.py
-
-# o
-
+# y luego
 py distributions.py
-
 ```
 
 ## Pasos
@@ -42,4 +48,4 @@ py distributions.py
 5. Mover el contenido del repo a un google colab (Era más facil hacerlo ahi desde un inicio pero no permitia que todos editemos codigo a la vez asi que se iba a volver engorroso, usamos vscode con la extension live share)
 6. Armar la presentacion
 
-Los ultimos 3 pasos se pueden hacer en paralelo
+_Nota: Los últimos 3 pasos se pueden hacer en paralelo_
