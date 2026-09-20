@@ -49,3 +49,51 @@ py distributions.py
 6. Armar la presentacion
 
 _Nota: Los últimos 3 pasos se pueden hacer en paralelo_
+
+## Modelos de IA para la simulación
+
+1. Los modelos de IA que vamos a estar simulando son GPT-5.6 Luna (sería el bajo), GPT-5.6 Terra (medio) y GPT-5.6 Sol (alto). Cada uno cuenta con datos de velocidad y precio que obtuvimos de distintas fuentes:
+
+Para representar tres niveles de capacidad se utilizan modelos de la familia GPT-5.6 de OpenAI en modo non-reasoning.
+
+Recurso	Modelo	TTFT	Velocidad de salida	Costo input / 1M tokens	Costo output / 1M tokens
+Small	GPT-5.6 Luna	0.93 s	98.1 tokens/s	USD 0.20	USD 1.20
+Medium	GPT-5.6 Terra	1.00 s	73.8 tokens/s	USD 2.00	USD 12.00
+Large	GPT-5.6 Sol	1.17 s	60 tokens/s	USD 4.00	USD 20.00
+
+Los valores de TTFT y velocidad de salida se toman como parametros de referencia obtenidos a partir de benchmarks de la API. Los costos corresponden al precio por tokens de cada modelo.
+
+Tiempo de atencion
+
+El tiempo de atencion de una consulta se calcula mediante:
+
+$$
+T_m = TTFT_m + \frac{OutputTokens}{Velocidad_m}
+$$
+
+Donde:
+
+T_m: tiempo de atencion del modelo seleccionado, en segundos.
+TTFT_m: tiempo hasta recibir el primer token.
+OutputTokens: cantidad de tokens generados en la respuesta.
+Velocidad_m: velocidad de generacion del modelo, en tokens por segundo.  
+
+Costo de una consulta
+
+El costo depende tanto de los tokens de entrada como de los tokens de salida:
+
+$$
+Costo_m =
+\frac{InputTokens}{1.000.000} \times PrecioInput_m
++
+\frac{OutputTokens}{1.000.000} \times PrecioOutput_m
+$$
+
+Donde:
+
+InputTokens: cantidad de tokens del prompt.
+OutputTokens: cantidad de tokens de la respuesta.
+PrecioInput_m: precio por un millon de tokens de entrada del modelo.
+PrecioOutput_m: precio por un millon de tokens de salida del modelo.
+
+De esta forma, cada consulta tiene un tiempo de atencion y un costo diferente dependiendo del modelo al que sea asignada.
